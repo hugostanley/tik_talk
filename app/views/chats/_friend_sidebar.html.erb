@@ -4,7 +4,9 @@
       <div class='flex flex-col'>
         <%= friend.full_name %>
         <%= turbo_stream_from "friendship_#{friendship.id}_preview" %>
-        <%= render partial: 'chats/sidebar_message_preview', locals: {last_message: last_message, friend: friend} %>
+        <% if last_message %>
+          <%= render partial: 'chats/sidebar_message_preview', locals: {last_message: last_message, friend: friend} %>
+        <% end %>
       </div>
 
   </div>
