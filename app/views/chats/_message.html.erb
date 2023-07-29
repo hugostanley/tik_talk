@@ -1,0 +1,21 @@
+<section>
+  <% if user&.id == message.sender.id %>
+    <div class="w-full flex justify-end items-end gap-1 p-2 break-all">
+      <div class="bg-yellow-400 py-2 px-4 rounded-lg max-w-[80%] break-all">
+        <p class="text-sm"><%= message.body %></p>
+      </div>
+      <div>
+        <%= image_tag message.sender.avatar_url, class: 'rounded-full w-6 h-auto rounded-full'%>
+      </div>
+    </div>
+  <% else %>
+    <div class="w-full flex items-end gap-1 p-2 break-all">
+      <div>
+        <%= image_tag message.sender.avatar_url, class: 'rounded-full w-6 h-auto rounded-full'%>
+      </div>
+      <div class="bg-gray-200 py-2 px-4 rounded-lg max-w-[80%] break-all">
+        <p class="text-sm"><%= message.body %></p>
+      </div>
+    </div>
+  <% end %>
+</section>

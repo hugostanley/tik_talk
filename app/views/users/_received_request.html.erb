@@ -1,0 +1,6 @@
+<div class="flex gap-4" id="<%= dom_id(request) %>">
+  <p><%= user.email %></p>
+  <%= form_with url: accept_request_path(user.id), method: :post, data: {turbo:false} do |form| %>
+    <%= form.submit "Accept request" %>
+  <% end %>
+</div>

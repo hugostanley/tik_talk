@@ -1,0 +1,7 @@
+<div class="flex gap-4" id="<%= dom_id(request) %>">
+  <span><%= user.email %> Awaiting approval</span>
+
+  <%= form_with url: cancel_request_path(user.id), method: :post, data: {turbo:false} do |form| %>
+    <%= form.submit "Cancel request" %>
+  <% end %>
+</div>

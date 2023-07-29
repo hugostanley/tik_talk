@@ -1,0 +1,6 @@
+<div class="flex gap-4" id="<%= dom_id(user) %>">
+  <span><%= user.email %></span>
+  <%= form_with url: add_friend_path(user.id), method: :post, data: {turbo:false} do |form| %>
+    <%= form.submit "Add friend" %>
+  <% end %>
+</div>

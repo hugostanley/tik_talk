@@ -1,0 +1,11 @@
+
+
+  <% if incoming_friend_requests[:users].include? user %>
+    <%= button_to "Accept Request", accept_request_path(user.id), data: {turbo: false}, class: "px-6 py-2 rounded-full bg-green-400 text-white font-bold border border-green-500" %>
+  <% elsif sent_friend_requests[:users].include? user %>
+    <%= button_to "Cancel Request", cancel_request_path(user.id), data: {turbo: false}, class: "px-6 py-2 rounded-full bg-green-400 text-white font-bold border border-green-500" %>
+
+  <% else %>
+    <%= button_to "Add Friend", add_friend_path(user.id), data: {turbo: false}, class: "px-6 py-2 rounded-full bg-green-400 text-white font-bold border border-green-500" %>
+  <% end %>
+

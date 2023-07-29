@@ -1,0 +1,7 @@
+<span id="<%= last_message.friendship_id %>_preview" class="leading-[0.5]">
+  <% if last_message.sender == friend %>
+    <span class="text-xs italic <%= last_message.read_receipt.nil? ? 'font-bold' : 'text-gray-400' %>"><%= last_message.body %></span>
+  <% else %>
+    <span class="text-xs text-gray-400 italic">You: <%= last_message.body %></span>
+  <% end %>
+</span>

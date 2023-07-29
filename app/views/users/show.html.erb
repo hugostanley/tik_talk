@@ -1,0 +1,16 @@
+<div class="w-full h-screen flex justify-center items-center bg-slate-100">
+  <div class="w-[50%] h-[50%] px-6 py-4 rounded-lg shadow-lg bg-white flex flex-col justify-center items-center gap-4">
+    <%= image_tag @user.avatar_url, class: "rounded-full h-auto w-24 border border-gray-200 shadow-lg" %>
+    <div class="text-center">
+      <h1 class='text-xl font-bold'><%= @user.full_name %></h1>
+      <span class="italic"><%= @user.email %></span>
+    </div>
+    <%= turbo_stream_from "user_#{current_user.id}_show" %>
+    <div id="<%= dom_id(@user) %>">
+      <% if @user.id != @current_user.id %>
+        <%= render partial: 'user', locals: { user: @user, friendship: @friendship } %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

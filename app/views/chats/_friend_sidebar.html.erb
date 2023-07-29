@@ -1,0 +1,11 @@
+<%= link_to conversation_path(friendship.id), data: {turbo_frame: 'chat_box', turbo_action: 'advance'} do %>
+  <div class="flex items-center p-4 w-full gap-2 cursor-pointer hover:bg-gray-200 ">
+      <%= image_tag friend.avatar_url, class: "rounded-full h-auto w-8" %>
+      <div class='flex flex-col'>
+        <%= friend.full_name %>
+        <%= turbo_stream_from "friendship_#{friendship.id}_preview" %>
+        <%= render partial: 'chats/sidebar_message_preview', locals: {last_message: last_message, friend: friend} %>
+      </div>
+
+  </div>
+<% end %>

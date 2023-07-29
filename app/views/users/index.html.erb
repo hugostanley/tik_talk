@@ -1,0 +1,39 @@
+<%= turbo_stream_from current_user.id %>
+<div class="w-full bg-slate-200 min-h-screen">
+  <h1>All users</h1>
+  <%#double CHECK!! you loop through the @users then you randomly render each @sent_friend_requests and @incoming_friend_requests collection weird %>
+  <% @users.each do |user| %>
+
+    <% if current_user.friend? user %>
+      <div class="flex gap-4">
+        <span><%= user.email %> already a friend</span>
+        <%= button_to "Unfriend", remove_friend_path(user.id), data: {turbo: false} %>
+      </div>
+
+      <% else %>
+
+
+        <div id="sent">
+          <% if @sent_friend_requests %>
+            <% @sent_friend_requests.each do |request| %>
+              <% if request.recipient_id == user.id %>
+                <%= render partial: 'sent_request', locals: {user: user, request: request} %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <% if @incoming_friend_requests %>
+            <% @incoming_friend_requests.each do |request| %>
+              <% if request.requestor_id == user.id %>
+              <%= render partial: 'received_request', locals: {user: user, request: request} %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <% if !@sent_friend_requests and !@incoming_friend_requests %>
+          <%= render partial: 'add_friend', locals: {user: user} %>
+        <% end %>
+    <% end %>
+  <% end %>
+</div>
