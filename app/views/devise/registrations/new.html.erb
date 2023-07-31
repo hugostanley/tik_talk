@@ -4,6 +4,7 @@
     <div class="flex flex-col gap-4">
     <%= render "devise/shared/error_messages", resource: resource %>
 
+    <%= render partial: "devise/shared/full_name_input", locals: {f: f} %>
     <%= render partial: "devise/shared/email_input", locals: {f: f} %>
     <%= render partial: "devise/shared/password_input", locals: {f:f, from_sign_up: true} %>
 
