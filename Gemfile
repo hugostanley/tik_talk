@@ -55,9 +55,7 @@ group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
 end
 
-group :production do
-  gem "redis", "~> 4.0"
-end
+gem "redis", "~> 4.0"
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
