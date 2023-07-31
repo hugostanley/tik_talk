@@ -1,5 +1,5 @@
 <%= turbo_stream_from current_user.id %>
-<div class="w-full bg-slate-200 min-h-screen">
+<div class="w-full min-h-screen">
   <h1>All users</h1>
   <%#double CHECK!! you loop through the @users then you randomly render each @sent_friend_requests and @incoming_friend_requests collection weird %>
   <% @users.each do |user| %>
