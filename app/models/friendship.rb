@@ -1,7 +1,7 @@
 class Friendship < ApplicationRecord
   belongs_to :recipient, class_name: 'User'
   belongs_to :requestor, class_name: 'User'
-  has_many :messages
+  has_many :messages, dependent: :destroy
   validates :status, inclusion: { in: %w[accepted rejected pending], message: '%<value>s is not a valid status' }
 
   after_create_commit do
