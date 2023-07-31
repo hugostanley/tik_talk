@@ -1,33 +1,32 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :instantiate
 
-  def index
-  end
+  def index; end
 
   def search
     @results = User.search(params)
   end
 
   def add_friend
-    @friendship = Friendship.new(requestor_id: current_user.id, recipient_id: params[:id], status: "pending")
+    @friendship = Friendship.new(requestor_id: current_user.id, recipient_id: params[:id], status: 'pending')
     @friendship.save
-
   end
 
   def accept_request
-    friendship = Friendship.find_by(recipient_id: current_user.id, requestor_id: params[:id], status: "pending")
+    friendship = Friendship.find_by(recipient_id: current_user.id, requestor_id: params[:id], status: 'pending')
 
-    friendship.update(status: "accepted") if friendship
+    friendship.update(status: 'accepted') if friendship
   end
 
   def remove_friend
-    friendship = Friendship.find_friendship current_user.id, params[:id], "accepted"
+    friendship = Friendship.find_friendship current_user.id, params[:id], 'accepted'
 
     friendship&.destroy
   end
 
   def cancel_request
-    friendship = Friendship.find_by(requestor_id: current_user.id, recipient_id: params[:id], status: "pending")
+    friendship = Friendship.find_by(requestor_id: current_user.id, recipient_id: params[:id], status: 'pending')
     friendship&.destroy
   end
 
