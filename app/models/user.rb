@@ -8,6 +8,12 @@ class User < ApplicationRecord
   has_many :sent_friendships, class_name: "Friendship", foreign_key: "requestor_id"
   has_many :received_friendships, class_name: "Friendship", foreign_key: "recipient_id"
 
+  def friendship(user_id)
+    Friendship.where(requestor_id: id, recipient_id: user_id,
+      status: "accepted").or(Friendship.where(requestor_id: user_id,
+      recipient_id: id, status: "accepted")).first
+  end
+
   def incoming_friend_requests
     # OMG OMG OMG
     # THE .includes is basically like a POPULATE in mongodb
@@ -21,9 +27,13 @@ class User < ApplicationRecord
   end
 
   def self.search(params)
-    params[:query].blank? ? all : where(
-      "full_name LIKE ? OR email LIKE ?", "%#{sanitize_sql_like(params[:query])}%", "%#{sanitize_sql_like(params[:query])}%"
-    )
+    if params[:query].blank?
+      all
+    else
+      where(
+        "full_name LIKE ? OR email LIKE ?", "%#{sanitize_sql_like(params[:query])}%", "%#{sanitize_sql_like(params[:query])}%"
+      )
+    end
   end
 
   def sent_friend_requests
