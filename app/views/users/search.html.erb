@@ -12,6 +12,7 @@
   <% end %>
 </div>
 <%= turbo_frame_tag "search_result" do %>
+  <% if @results.any? %>
   <% @results.each do |item| %>
 
     <% if current_user.friend? item %>
@@ -30,22 +31,24 @@
     <% end %>
       
     <% else %>
-    <%= link_to profile_path(item.id), data: {turbo_frame: '_top', turbo_action: "advance"} do %>
-      <div class="flex items-center p-4 w-full gap-2 cursor-pointer hover:bg-gray-200 ">
-        <% if item.avatar_url %>
-          <%= image_tag item.avatar_url, class: "rounded-full h-auto w-8" %>
-        <% else %>
-          <div class="rounded-full h-auto w-8 bg-gray-500"></div>
-        <% end %>
-        <div class='flex flex-col'>
-          <%= item.full_name %>
-          <%= item.email %>
+      <%= link_to profile_path(item.id), data: {turbo_frame: '_top', turbo_action: "advance"} do %>
+        <div class="flex items-center p-4 w-full gap-2 cursor-pointer hover:bg-gray-200 ">
+          <% if item.avatar_url %>
+            <%= image_tag item.avatar_url, class: "rounded-full h-auto w-8" %>
+          <% else %>
+            <div class="rounded-full h-auto w-8 bg-gray-500"></div>
+          <% end %>
+          <div class='flex flex-col'>
+            <%= item.full_name %>
+            <%= item.email %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-      
-    <% end %>
-
-
+  <% end %>
+<% else %>
+  <div class="w-full p-4">
+    <span>No users found</span>
+  </div>
   <% end %>
 <% end %>

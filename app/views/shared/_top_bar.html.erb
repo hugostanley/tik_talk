@@ -21,7 +21,7 @@
             <span>Friends</span>
           </div>
         <% end %>
-        <%= link_to destroy_user_session_path, data: {turbo: false } do %>
+        <%= link_to destroy_user_session_path, data: {turbo_method: :delete, turbo_frame: "_top", action: "advance"  } do %>
           <div class="w-full p-4 cursor-pointer hover:bg-gray-100">
             <span>Logout</span>
           </div>
