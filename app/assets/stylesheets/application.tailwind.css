@@ -15,3 +15,38 @@
 .open-dropdown {
   display: block;
 }
+
+.animate-input {
+  animation: animateInput 100ms ease forwards;
+}
+
+.deanimate-input {
+  animation: deanimateInput 100ms ease forwards;
+}
+@keyframes deanimateInput {
+  0% {
+  display: block;
+  opacity: 1;
+  width: 25px;
+}
+
+100% {
+  display: none;
+  opacity: 0;
+  width: 0px;
+}
+}
+
+@keyframes animateInput {
+  0% {
+  display: none;
+  opacity: 0;
+  width: 0px;
+}
+
+100% {
+  display: block;
+  opacity: 1;
+  width: 25px;
+}
+}
