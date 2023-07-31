@@ -1,17 +1,17 @@
-  
+<div id="user_<%= user.id %>_profile">
 <% if friendship %>
   <% if friendship.status == 'accepted' %>
 
-    <%= button_to "Unfriend", remove_friend_path(user.id), data: {turbo: false}, class: "px-6 py-2 rounded-full bg-red-400 text-white font-bold border border-red-500" %>
+    <%= button_to "Unfriend", remove_friend_path(user.id), data: {turbo: false, controller: "authenticity"}, class: "px-6 py-2 rounded-full bg-red-400 text-white font-bold border border-red-500" %>
 
   <% else %>
 
     <% if friendship.status == 'pending' %>
 
       <% if friendship.requestor_id == user.id %>
-        <%= button_to "Accept Request", accept_request_path(user.id), data: {turbo: false}, class: "px-6 py-2 rounded-full bg-green-400 text-white font-bold border border-green-500" %>
+        <%= button_to "Accept Request", accept_request_path(user.id), data: {turbo: false, controller: "authenticity"}, class: "px-6 py-2 rounded-full bg-green-400 text-white font-bold border border-green-500" %>
       <% else %>
-        <%= button_to "Cancel Request", cancel_request_path(user.id), data: {turbo: false}, class: "px-6 py-2 rounded-full bg-red-400 text-white font-bold border border-red-500" %>
+        <%= button_to "Cancel Request", cancel_request_path(user.id), data: {turbo: false, controller: "authenticity"}, class: "px-6 py-2 rounded-full bg-red-400 text-white font-bold border border-red-500" %>
       <% end %>
 
     <% end %>
@@ -19,7 +19,8 @@
 
 <% else %>
 
-  <%= button_to "Add Friend", add_friend_path(user.id), data: {turbo: false}, class: "px-6 py-2 rounded-full bg-green-400 text-white font-bold border border-green-500" %>
+  <%= button_to "Add Friend", add_friend_path(user.id), data: {turbo: false, controller: "authenticity"}, class: "px-6 py-2 rounded-full bg-green-400 text-white font-bold border border-green-500" %>
 
 <% end %>
 
+</div>  
