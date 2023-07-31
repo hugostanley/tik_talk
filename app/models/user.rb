@@ -20,6 +20,12 @@ class User < ApplicationRecord
     return friendships.includes(:requestor) if friendships.any?
   end
 
+  def self.search(params)
+    params[:query].blank? ? all : where(
+      "full_name LIKE ? OR email LIKE ?", "%#{sanitize_sql_like(params[:query])}%", "%#{sanitize_sql_like(params[:query])}%"
+    )
+  end
+
   def sent_friend_requests
     friendships = sent_friendships.where(status: "pending")
     return friendships.includes(:recipient) if friendships.any?

@@ -3,6 +3,10 @@ class UsersController < ApplicationController
 
   def index; end
 
+  def search
+    @results = User.search(params)
+  end
+
   def add_friend
     Friendship.create(requestor_id: current_user.id, recipient_id: params[:id], status: 'pending')
   end
@@ -29,7 +33,6 @@ class UsersController < ApplicationController
     @friendship = Friendship.find_friendship current_user.id, params[:id]
 
     # add an error handling if user is not exisiting
-
   end
 
   private

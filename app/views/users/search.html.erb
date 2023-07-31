@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "search_result" do %>
+  <% @results.each do |item| %>
+    <%= item.email %>
+  <% end %>
+<% end %>

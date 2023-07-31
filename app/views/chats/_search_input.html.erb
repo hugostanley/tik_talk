@@ -1,0 +1,10 @@
+<%= form_with url: users_search_path, method: :get, data: {turbo_frame:"search_result", turbo_action: 'advance', controller: 'search', action: 'input->search#submit'} do |f| %>
+  <div class="flex items-center" id="search_input">
+
+    <%= link_to root_path, data: {turbo_frame: "search_result", turbo_action: "advance", search_target: "searchExitIcon", action: "click->search#exit"} do %>
+      <%= evil_icon "ei-chevron-left", class: '!hidden pointer-events-none'%>
+    <% end %>
+
+    <%= f.text_field :query, data: {action: "focus->search#focus"}, class: 'text-sm rounded-full w-full py-2 px-4 border-none outline-none resize-none border-transparent focus:border-transparent focus:ring-0 bg-gray-200', placeholder: 'Search people' %>
+  </div>
+<% end %>
