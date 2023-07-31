@@ -1,0 +1,32 @@
+<div class="py-2 border-y border-y-gray-200 px-4">
+  <div class="flex justify-between items-center">
+    <% if local_assigns[:heading] %>
+      <%= link_to root_path do %>
+        <%= evil_icon "ei-chevron-left", size: 'm' %>
+      <% end %>
+      <h1 class="font-bold text-2xl"><%= heading %></h1>
+    <% else %>
+      <h1 class="font-bold text-2xl">Chats</h1>
+    <% end %>
+    <div data-controller="user-dropdown" data-user-dropdown-target="dropdownIcon" data-action="click->user-dropdown#toggle" class="cursor-pointer relative">
+      <%= evil_icon 'ei-user', size: 'm', class: 'hover:bg-gray-100 rounded-full pointer-events-none'%>
+      <div class="hidden absolute w-56 bg-white top-full right-0 border border-gray-200 rounded-xl shadow-lg cursor-default" data-user-dropdown-target="dropdownDiv">
+        <%= link_to profile_path(current_user.id), data: {turbo_frame: "_top"} do %>
+          <div class="w-full p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-100">
+            <span>Profile</span>
+          </div>
+        <% end %>
+        <%= link_to users_path, data: {turbo:false} do %>
+          <div class="w-full p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-100">
+            <span>Friends</span>
+          </div>
+        <% end %>
+        <%= link_to destroy_user_session_path, data: {turbo: false } do %>
+          <div class="w-full p-4 cursor-pointer hover:bg-gray-100">
+            <span>Logout</span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
