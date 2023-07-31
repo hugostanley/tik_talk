@@ -26,7 +26,7 @@
   </div>
   <% if @user.id != @current_user.id %>
     <%= turbo_stream_from "user_#{current_user.id}_show" %>
-    <div id="user_<%= @user.id %>_profile" class="w-full flex justify-center">
+    <div class="w-full flex justify-center">
       <%= render partial: 'user', locals: { user: @user, friendship: @friendship } %>
     </div>
   <% end %>
