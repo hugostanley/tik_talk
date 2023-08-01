@@ -1,1 +1,4 @@
+<%# Target: id="chatbox" %>
+<%# located at: views/chats/show %>
+
 <%= turbo_stream.append "chatbox", partial: 'chats/message', locals: {message: @message, user: current_user} %>

@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Simple CRUD for friendships
+# Probably could have made a separate controller for Friendship?
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :instantiate
@@ -9,13 +13,11 @@ class UsersController < ApplicationController
   end
 
   def add_friend
-    @friendship = Friendship.new(requestor_id: current_user.id, recipient_id: params[:id], status: 'pending')
-    @friendship.save
+    @friendship = Friendship.create(requestor_id: current_user.id, recipient_id: params[:id], status: 'pending')
   end
 
   def accept_request
     friendship = Friendship.find_by(recipient_id: current_user.id, requestor_id: params[:id], status: 'pending')
-
     friendship.update(status: 'accepted') if friendship
   end
 
@@ -33,8 +35,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @friendship = Friendship.find_friendship current_user.id, params[:id]
-
-    # add an error handling if user is not exisiting
   end
 
   private
