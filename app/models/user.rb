@@ -4,8 +4,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :validatable,
-    :omniauthable, omniauth_providers: [:google_oauth2]
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
 
   # has_many :sent_friendships allows a = UserInstance.sent_friendships
   #
@@ -13,9 +13,9 @@ class User < ApplicationRecord
   #
   # SELECT * from Friendships where requestor_id = user.id
   has_many :sent_friendships, class_name: 'Friendship', foreign_key: 'requestor_id' # standard:disable Style/StringLiterals
-  has_many :received_friendships, class_name: "Friendship", foreign_key: "recipient_id"
-  has_one :requestor, class_name: "User", foreign_key: "requestor_id"
-  has_one :recipient, class_name: "User", foreign_key: "recipient_id"
+  has_many :received_friendships, class_name: 'Friendship', foreign_key: 'recipient_id'
+  has_one :requestor, class_name: 'User', foreign_key: 'requestor_id'
+  has_one :recipient, class_name: 'User', foreign_key: 'recipient_id'
 
   # Method that will return a userInstance's friendship with another user
   #
@@ -25,8 +25,8 @@ class User < ApplicationRecord
   # OR requestor_id = 2 and recipient_id = 1 and status = 'accepted'
   def friendship(user_id)
     Friendship.where(requestor_id: id, recipient_id: user_id,
-      status: "accepted").or(Friendship.where(requestor_id: user_id,
-        recipient_id: id, status: "accepted")).first
+                     status: 'accepted').or(Friendship.where(requestor_id: user_id,
+                                                             recipient_id: id, status: 'accepted')).first
   end
 
   # Method to populate Friendships[] with requestor
@@ -38,24 +38,32 @@ class User < ApplicationRecord
   # so there's no need to query every #requestor call
   # It's eager loaded
   def incoming_friend_requests
-    friendships = received_friendships.where(status: "pending")
+    friendships = received_friendships.where(status: 'pending')
     return friendships.includes(:requestor) if friendships.any?
+
+    []
   end
 
   # Similar to incoming_friend_requests
   def sent_friend_requests
-    friendships = sent_friendships.where(status: "pending")
+    friendships = sent_friendships.where(status: 'pending')
     return friendships.includes(:recipient) if friendships.any?
+
+    []
   end
 
   def accepted_incoming_requests
-    friendships = received_friendships.where(status: "accepted")
+    friendships = received_friendships.where(status: 'accepted')
     return friendships.includes(:requestor) if friendships.any?
+
+    []
   end
 
   def accepted_sent_requests
-    friendships = sent_friend_requests.where(status: "accepted")
+    friendships = sent_friendships.where(status: 'accepted')
     return friendships.includes(:recipient) if friendships.any?
+
+    []
   end
 
   def self.search(params)
@@ -63,7 +71,7 @@ class User < ApplicationRecord
       all
     else
       where(
-        "full_name LIKE ? OR email LIKE ?", "%#{sanitize_sql_like(params[:query])}%", "%#{sanitize_sql_like(params[:query])}%"
+        'full_name LIKE ? OR email LIKE ?', "%#{sanitize_sql_like(params[:query])}%", "%#{sanitize_sql_like(params[:query])}%"
       )
     end
   end
@@ -87,8 +95,8 @@ class User < ApplicationRecord
     user = User.where(email: auth.info.email).first
 
     user ||= User.create!(email: auth.info.email, password: Devise.friendly_token[0, 20],
-      full_name: auth.info.name,
-      avatar_url: auth.info.image, provider: auth.provider, uid: auth.uid)
+                          full_name: auth.info.name,
+                          avatar_url: auth.info.image, provider: auth.provider, uid: auth.uid)
     user
   end
 end
