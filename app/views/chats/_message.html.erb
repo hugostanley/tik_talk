@@ -1,7 +1,17 @@
 <section>
   <% if user&.id == message.sender.id %>
-    <div class="w-full flex justify-end items-end gap-1 p-2 break-all">
-      <div class="bg-yellow-400 py-2 px-4 rounded-lg max-w-[80%] break-all flex items-end gap-2 justify-between wrap">
+    <div class="w-full flex justify-end items-end gap-1 p-2 break-all" data-controller="message" id="friendship_<%= message.friendship_id %>_message_<%= message.id %>">
+
+      <%# Not working yet so won't display %>
+      <%= if false %>
+        <div data-message-target="deleteBtn" class="hidden">
+          <%= button_to delete_message_path(message.id), data: {turbo:false, controller: 'authenticity'} do %>
+            <%= evil_icon 'ei-trash' %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div data-action="click->message#showDeleteBtn" data-message-target="messageBox" class="transition-all bg-yellow-400 py-2 px-4 rounded-lg max-w-[80%] break-all flex items-end gap-2 justify-between wrap cursor-pointer hover:bg-yellow-500">
         <%= simple_format(message.body, class: 'text-sm') %>
         <span class="text-[7px] whitespace-nowrap "><%= message.created_at.strftime("%I:%M %p") %></span>
       </div>
@@ -10,15 +20,13 @@
       </div>
     </div>
   <% else %>
-    <div class="w-full flex items-end gap-1 p-2 break-all">
+    <div class="w-full flex items-end gap-1 p-2 break-all" data-controller="message">
       <div>
         <%= image_tag message.sender.avatar_url, class: 'rounded-full w-6 h-auto rounded-full'%>
       </div>
-      <div class="bg-gray-200 py-2 px-4 rounded-lg max-w-[80%] break-all flex items-end gap-2 justify-between wrap">
+      <div  class="bg-gray-200 py-2 px-4 rounded-lg max-w-[80%] break-all flex items-end gap-2 justify-between wrap cursor-pointer hover:bg-gray-300 transition-all">
         <%= simple_format(message.body, class: 'text-sm') %>
         <span class="text-[7px] whitespace-nowrap "><%= message.created_at.strftime("%I:%M %p") %></span>
-      </div>
-      <div>
       </div>
     </div>
   <% end %>

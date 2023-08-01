@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root 'chats#index'
   get 'c/:id', to: 'chats#show', as: 'conversation'
   post 'c', to: 'chats#create', as: 'send_message'
+  # commented out as there is an error in controller
+  # post 'c/delete/:id', to: 'chats#destroy', as: 'delete_message'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   get 'users', to: 'users#search', as: 'users_search'

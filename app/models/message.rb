@@ -45,6 +45,13 @@ class Message < ApplicationRecord
       locals: {last_message: self, friend: sender}, target: "#{friendship_id}_preview"
   end
 
+  # Commented out as it is not working
+  # error is not here, but rather in the controller
+  # after_destroy_commit do
+  #   broadcast_remove_to "friendship_#{friendship_id}_#{receiver_id}_conversation", target: "friendship_#{friendship_id}_message_#{id}"
+  #   broadcast_remove_to "friendship_#{friendship_id}_#{sender_id}_conversation", target: "friendship_#{friendship_id}_message_#{id}"
+  # end
+
   # Commented out as it is unused
   #
   # Use as reference, distance_of_time_in_words is a builtin rails helper

@@ -6,7 +6,6 @@ class ChatsController < ApplicationController
 
   # Method for the actual chatbox
   def show
-
     @friendship = Friendship.find params[:id]
 
     # Since the current_user's friend in the friendship model could either be the recipient or requestor,
@@ -17,7 +16,7 @@ class ChatsController < ApplicationController
     @messages = @friendship.messages.order(:created_at)
     @message = Message.new
 
-    # TODO: refactor 
+    # TODO: refactor
     # Feature for read receipts
     # Get all messages where read_receipt is equal to nil meaning, unread messages from
     # the Friend and not from the current_user
@@ -25,7 +24,7 @@ class ChatsController < ApplicationController
 
     # if there's any, it is updated with Time.now
     #
-    # Whenever the chatbox is opened, this is ran 
+    # Whenever the chatbox is opened, this is ran
     unread.update_all(read_receipt: Time.now) if unread.any?
   end
 
@@ -33,7 +32,6 @@ class ChatsController < ApplicationController
     @message = Message.new(new_message_params)
 
     respond_to do |format|
-
       # looks for a turbo_stream template
       #
       # located at: views/chats/create.turbo_stream.erb
@@ -41,10 +39,25 @@ class ChatsController < ApplicationController
     end
   end
 
+  # TODO: currently not working
+  # error with the format
+  # def destroy
+  #   message = Message.find(params[:id])
+  #   message&.destroy
+  #
+  #   respond_to do |format|
+  #     format.turbo_stream
+  #   end
+  # end
+
   private
 
   def instantiate
     @friends = current_user.accepted_friendships
+  end
+
+  def destroy_message
+    params.permit(:id, :friendship_id)
   end
 
   def new_message_params
