@@ -1,6 +1,6 @@
-<div class='w-full h-screen flex'>
-  <%= turbo_frame_tag "chat_box" do %>
-  <section class="side-bar w-full h-full border-r border-r-gray-200 absolute shadow-lg">
+<div class='w-full h-screen bg-white'>
+  <%= turbo_frame_tag "chat_box", class:"flex justify-center h-full" do %>
+  <section class="side-bar w-full h-full border-r border-r-gray-200 absolute shadow-lg sm:w-80 md:w-96 bg-white ">
     <%= render 'shared/top_bar' %>
     <div class="p-2 ">
       <%= render "search_input" %>
@@ -14,11 +14,4 @@
     <% end %>
   </section>
   <% end %>
-  <section class="grow xs:hidden">
-    <%= turbo_frame_tag "chat_box" do %>
-      <div class="w-full h-full flex items-center justify-center">
-        <p class="text-2xl font-bold text-gray-500">Select a chat</p>
-      </div>
-    <% end %>
-  </section>
 </div>

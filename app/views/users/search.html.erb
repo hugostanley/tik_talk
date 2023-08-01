@@ -1,3 +1,5 @@
+<div class="w-full h-screen min-h-screen  max-h-screen flex justify-center">
+<div class="w-full h-full sm:w-80 md:w-96 bg-white shadow-lg">
 <%= render partial: 'shared/top_bar', locals: {heading: "Search"} %>
 <div class="p-2">
   <%= form_with url: users_search_path, method: :get, data: {turbo_frame:"search_result", turbo_action: 'advance', controller: 'search', action: 'input->search#submit'} do |f| %>
@@ -64,3 +66,5 @@
   </div>
   <% end %>
 <% end %>
+</div>
+</div>

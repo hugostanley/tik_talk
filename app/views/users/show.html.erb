@@ -1,5 +1,5 @@
-<%= turbo_frame_tag "chat_box" do %>
-<div class="w-full min-h-screen p-4">
+<%= turbo_frame_tag "chat_box", class: 'w-full flex justify-center' do %>
+<div class="w-full min-h-screen p-4 sm:w-80 md:w-96 bg-white shadow-lg">
   <div class="w-full flex justify-between">
     <%= turbo_frame_tag "user_profile", target: '_top' do %>
       <%= link_to :back, data: {turbo_action: 'advance', turbo_frame: "_top"} do %>

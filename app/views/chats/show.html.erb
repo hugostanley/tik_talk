@@ -1,6 +1,7 @@
-<div class="h-screen w-full">
+<div class="h-screen max-h-screen w-full flex justify-center">
+<div class="h-screen  max-h-screen sm:w-80 md:w-96 relative bg-white shadow-lg">
 <%= turbo_frame_tag 'chat_box' do %>
-  <section class="w-full h-16 bg-white fixed top-0 drop-shadow-md flex items-center px-4">
+  <section class="w-full sm:w-80 md:w-96 h-16 bg-white fixed block top-0 drop-shadow-md flex items-center px-4">
     <%= link_to root_path, data: {turbo_action: 'advance'}, class: 'flex items-center' do %>
       <%= evil_icon "ei-chevron-left", size: 's' %>
     <% end %>
@@ -8,7 +9,7 @@
       <span class='font-bold'><%= @friend.full_name %></span>
     <% end %>
   </section>
-  <div data-controller="chatbox" class="w-full h-full flex flex-col">
+  <div data-controller="chatbox" class="w-full sm:w-80 md:w-96 h-full flex flex-col">
     <%= turbo_stream_from "friendship_#{@friendship.id}_#{current_user.id}_conversation" %>
     <div class="flex flex-col justify-end h-[90%]" >
       <div class="max-h-full overflow-y-scroll" data-chatbox-target="chatBoxDiv" id="chatbox" data-action="DOMNodeInserted->chatbox#scrollIntoView">
@@ -29,4 +30,5 @@
     </div>
   </div>
 <% end %>
+</div>
 </div>
