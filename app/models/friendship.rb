@@ -31,26 +31,26 @@ class Friendship < ApplicationRecord
   #
   # This allows realtime updates to both sides
   after_create_commit do
-    broadcast_replace_to "user_#{recipient_id}_show", partial: 'users/user', locals: { friendship: self, user: requestor },
+    broadcast_replace_later_to "user_#{recipient_id}_show", partial: 'users/user', locals: { friendship: self, user: requestor },
                                                       target: "user_#{requestor_id}_profile"
 
-    broadcast_replace_to "user_#{requestor_id}_show", partial: 'users/user', locals: { friendship: self, user: recipient },
+    broadcast_replace_later_to "user_#{requestor_id}_show", partial: 'users/user', locals: { friendship: self, user: recipient },
                                                       target: "user_#{recipient_id}_profile"
   end
 
   after_update_commit do
-    broadcast_replace_to "user_#{recipient_id}_show", partial: 'users/user', locals: { friendship: self, user: requestor },
+    broadcast_replace_later_to "user_#{recipient_id}_show", partial: 'users/user', locals: { friendship: self, user: requestor },
                                                       target: "user_#{requestor_id}_profile"
 
-    broadcast_replace_to "user_#{requestor_id}_show", partial: 'users/user', locals: { friendship: self, user: recipient },
+    broadcast_replace_later_to "user_#{requestor_id}_show", partial: 'users/user', locals: { friendship: self, user: recipient },
                                                       target: "user_#{recipient_id}_profile"
   end
 
   after_destroy_commit do
-    broadcast_replace_to "user_#{requestor_id}_show", partial: 'users/user',
+    broadcast_replace_later_to "user_#{requestor_id}_show", partial: 'users/user',
                                                       locals: { friendship: nil, user: recipient }, target: "user_#{recipient_id}_profile"
 
-    broadcast_replace_to "user_#{recipient_id}_show", partial: 'users/user', locals: { friendship: nil, user: requestor },
+    broadcast_replace_later_to "user_#{recipient_id}_show", partial: 'users/user', locals: { friendship: nil, user: requestor },
                                                       target: "user_#{requestor_id}_profile"
   end
 

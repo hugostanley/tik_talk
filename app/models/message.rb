@@ -30,7 +30,7 @@ class Message < ApplicationRecord
     # A different method is done for updating the message list of the sender (current_user).
     #
     # See: controllers/chats_controller.rb#create
-    broadcast_append_to "friendship_#{friendship_id}_#{receiver_id}_conversation", partial: "chats/message",
+    broadcast_append_later_to "friendship_#{friendship_id}_#{receiver_id}_conversation", partial: "chats/message",
       locals: {message: self, user: nil}, target: "chatbox"
     # Subscribe to: "friendship_#{friendship_id}_preview"
     #   ex: "friendship_1_preview"
@@ -41,7 +41,7 @@ class Message < ApplicationRecord
     #     located at: views/chats/_sidebar_message_preview.html.erb
     #
     # This turbo_stream broadcast is to show realtime latest message update on the chats#index page
-    broadcast_replace_to "friendship_#{friendship_id}_preview", partial: "chats/sidebar_message_preview",
+    broadcast_replace_later_to "friendship_#{friendship_id}_preview", partial: "chats/sidebar_message_preview",
       locals: {last_message: self, friend: sender}, target: "#{friendship_id}_preview"
   end
 
