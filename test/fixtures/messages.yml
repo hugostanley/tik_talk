@@ -1,11 +1,18 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  body: MyText
-  sender: one
-  receiver: one
+  body: second message!
+  sender: user_one
+  receiver: user_two
+  friendship: friendship_one
 
 two:
-  body: MyText
-  sender: two
-  receiver: two
+  body: second message!
+  sender: user_two
+  receiver: user_one
+  friendship: friendship_one
+
+no_body: 
+  sender: user_two
+  receiver: user_one
+  friendship: friendship_one

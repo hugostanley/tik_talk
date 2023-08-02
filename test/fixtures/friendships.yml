@@ -1,11 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  recipient: one
-  requestor: one
-  status: MyString
+friendship_one:
+  recipient: user_one
+  requestor: user_two
+  status: accepted
 
-two:
-  recipient: two
-  requestor: two
-  status: MyString
