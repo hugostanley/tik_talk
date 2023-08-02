@@ -41,14 +41,11 @@ class ChatsController < ApplicationController
 
   # TODO: currently not working
   # error with the format
-  # def destroy
-  #   message = Message.find(params[:id])
-  #   message&.destroy
-  #
-  #   respond_to do |format|
-  #     format.turbo_stream
-  #   end
-  # end
+  def destroy
+    @message = Message.find(params[:id])
+    @message&.destroy
+    respond_to(&:turbo_stream)
+  end
 
   private
 
