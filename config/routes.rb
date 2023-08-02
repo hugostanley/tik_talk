@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   get 'user/:id', to: 'users#show', as: 'profile'
   post 'users/add/:id', to: 'users#add_friend', as: 'add_friend'
   post 'users/accept/:id', to: 'users#accept_request', as: 'accept_request'
-  post 'users/cancel/:id', to: 'users#cancel_request', as: 'cancel_request'
-  post 'users/unfriend/:id', to: 'users#remove_friend', as: 'remove_friend'
+  delete 'users/cancel/:id', to: 'users#cancel_request', as: 'cancel_request'
+  delete 'users/unfriend/:id', to: 'users#remove_friend', as: 'remove_friend'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
