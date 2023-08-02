@@ -20,7 +20,7 @@
     </div>
     <div class="min-h-[10%] p-4 flex items-center">
       <div class="w-full">
-        <%= form_with model: @message, method: :post, url: send_message_path, data: {action: "turbo:submit-end->chatbox#reset", chatbox_target: 'form'} do |f| %>
+        <%= form_with model: @message, method: :post, url: send_message_path, data: {action: "turbo:submit-start->chatbox#reset", chatbox_target: 'form'} do |f| %>
           <%= f.hidden_field :sender_id, value: current_user.id %>
           <%= f.hidden_field :receiver_id, value: @friend.id %>
           <%= f.hidden_field :friendship_id, value: @friendship.id %>
