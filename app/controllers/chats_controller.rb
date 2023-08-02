@@ -6,26 +6,30 @@ class ChatsController < ApplicationController
 
   # Method for the actual chatbox
   def show
-    @friendship = Friendship.find params[:id]
+    @friendship = Friendship.find_by_id params[:id]
 
-    # Since the current_user's friend in the friendship model could either be the recipient or requestor,
-    # a conditional checking is done
-    @friend = @friendship.requestor.id == current_user.id ? @friendship.recipient : @friendship.requestor
+    if @friendship
+      # Since the current_user's friend in the friendship model could either be the recipient or requestor,
+      # a conditional checking is done
+      @friend = @friendship.requestor.id == current_user.id ? @friendship.recipient : @friendship.requestor
 
-    # Get all the messages of that friendship and order by the creation meaning latest creation goes last
-    @messages = @friendship.messages.order(:created_at)
-    @message = Message.new
+      # Get all the messages of that friendship and order by the creation meaning latest creation goes last
+      @messages = @friendship.messages.order(:created_at)
+      @message = Message.new
 
-    # TODO: refactor
-    # Feature for read receipts
-    # Get all messages where read_receipt is equal to nil meaning, unread messages from
-    # the Friend and not from the current_user
-    unread = @messages.where(read_receipt: nil).where.not(sender_id: current_user.id)
+      # TODO: refactor
+      # Feature for read receipts
+      # Get all messages where read_receipt is equal to nil meaning, unread messages from
+      # the Friend and not from the current_user
+      unread = @messages.where(read_receipt: nil).where.not(sender_id: current_user.id)
 
-    # if there's any, it is updated with Time.now
-    #
-    # Whenever the chatbox is opened, this is ran
-    unread.update_all(read_receipt: Time.now) if unread.any?
+      # if there's any, it is updated with Time.now
+      #
+      # Whenever the chatbox is opened, this is ran
+      unread.update_all(read_receipt: Time.now) if unread.any?
+    else
+      render 'chats/_conv_not_found'
+    end
   end
 
   def create

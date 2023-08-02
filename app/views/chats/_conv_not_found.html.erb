@@ -1,0 +1,13 @@
+<div class="h-screen max-h-screen w-full flex justify-center">
+<div class="h-screen  max-h-screen sm:w-80 md:w-96 relative bg-white shadow-lg">
+  <section class="w-80 md:w-96 h-16 bg-white fixed block top-0 drop-shadow-md flex items-center px-4">
+    <%= link_to root_path, data: {turbo_action: 'advance'}, class: 'flex items-center' do %>
+      <%= evil_icon "ei-chevron-left", size: 's' %>
+      <span class='font-bold'>Back to home</span>
+    <% end %>
+  </section>
+  <div data-controller="chatbox" class="w-full sm:w-80 md:w-96 h-full flex justify-center items-center">
+    <span class="text-xl text-gray-500 italic font-bold">Conversation not found</span>
+  </div>
+</div>
+</div>
