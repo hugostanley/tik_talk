@@ -1,7 +1,7 @@
 class Friendship < ApplicationRecord
   belongs_to :recipient, class_name: 'User'
   belongs_to :requestor, class_name: 'User'
-  has_many :messages, dependent: :destroy
+  has_many :messages, dependent: :delete_all
   validates :status, inclusion: { in: %w[accepted rejected pending], message: '%<value>s is not a valid status' }
 
   # Main idea: 
@@ -47,11 +47,11 @@ class Friendship < ApplicationRecord
   end
 
   after_destroy_commit do
-    broadcast_replace_later_to "user_#{requestor_id}_show", partial: 'users/user',
-                                                      locals: { friendship: nil, user: recipient }, target: "user_#{recipient_id}_profile"
+     broadcast_replace_later_to "user_#{requestor_id}_show", partial: 'users/user',
+                                                       locals: { friendship: nil, user: recipient }, target: "user_#{recipient_id}_profile"
 
-    broadcast_replace_later_to "user_#{recipient_id}_show", partial: 'users/user', locals: { friendship: nil, user: requestor },
-                                                      target: "user_#{requestor_id}_profile"
+     broadcast_replace_later_to "user_#{recipient_id}_show", partial: 'users/user', locals: { friendship: nil, user: requestor },
+                                                       target: "user_#{requestor_id}_profile"
   end
 
   def self.find_friendship(id1, id2, status = nil)
