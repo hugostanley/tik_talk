@@ -1,0 +1,20 @@
+<div class="w-full flex justify-center">
+  <div class="w-full min-h-screen p-4 sm:w-80 md:w-96 bg-white shadow-lg">
+    <div class="w-full">
+      <%= link_to root_path, data: {turbo_action: 'advance', turbo_frame: "_top"} do %>
+        <div class="flex items-center gap-2">
+          <%= evil_icon "ei-chevron-left" %>
+          <span>Back to home</span>
+        </div>
+      <% end %>
+    </div>
+    <div class="w-full flex justify-center items-center flex-col py-10 gap-4 text-center">
+      <div class="rounded-full h-24 w-24 border border-gray-200 shadow-lg bg-gray-200 flex items-center justify-center">
+        <span class="text-4xl font-bold">N/A</span>
+      </div>
+      <div class="">
+        <h1 class="font-bold text-2xl">User not found</h1>
+      </div>
+    </div>
+  </div>
+</div>
