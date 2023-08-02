@@ -1,8 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ['chatBoxDiv', 'form']
-  connect(){
+  static targets = ['chatBoxDiv', 'form', 'textArea']
+  connect() {
     this.chatBoxDivTarget.scrollTo({
       top: this.chatBoxDivTarget.scrollHeight,
       left: 0,
@@ -13,7 +13,13 @@ export default class extends Controller {
     this.formTarget.reset()
   }
 
-  scrollIntoView(){
+  submitOnEnter(e) {
+    e.preventDefault()
+    if (this.textAreaTarget.value === "") return
+    this.formTarget.requestSubmit()
+  }
+
+  scrollIntoView() {
     this.chatBoxDivTarget.scrollTo({
       top: this.chatBoxDivTarget.scrollHeight,
       left: 0,
