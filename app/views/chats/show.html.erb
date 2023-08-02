@@ -25,7 +25,7 @@
           <%= f.hidden_field :receiver_id, value: @friend.id %>
           <%= f.hidden_field :friendship_id, value: @friendship.id %>
           <div class='w-full flex items-center gap-2'>
-            <%= f.text_area :body, rows:1, placeholder: 'Type a message', class: 'w-full bg-gray-200 p-4 rounded-lg border-none outline-none resize-none border-transparent focus:border-transparent focus:ring-0'  %>
+            <%= f.text_area :body, rows:1, placeholder: 'Type a message', class: 'w-full bg-gray-200 p-4 rounded-lg border-none outline-none resize-none border-transparent focus:border-transparent focus:ring-0', data: {chatbox_target: 'textArea', action: 'keydown.enter->chatbox#submitOnEnter'}  %>
             <button type="submit">
               <div class="font-bold h-8 w-8 rounded-full bg-yellow-400 flex items-center justify-center">
                 <%= evil_icon "ei-chevron-right"  %>
