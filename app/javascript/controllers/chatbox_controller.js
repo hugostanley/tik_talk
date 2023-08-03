@@ -14,9 +14,13 @@ export default class extends Controller {
   }
 
   submitOnEnter(e) {
-    e.preventDefault()
-    if (this.textAreaTarget.value === "") return
-    this.formTarget.requestSubmit()
+    // allow new line on enter in mobile devices
+    // disallow in web browsers
+    if(navigator.maxTouchPoints < 2){
+      e.preventDefault()
+      if (this.textAreaTarget.value === "") return
+      this.formTarget.requestSubmit()
+    }
   }
 
   scrollIntoView() {
