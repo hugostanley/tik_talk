@@ -1,5 +1,7 @@
 *WIP*
-# Hotwire Chat app
+# Hotwire Chat app [Live Demo](https://tik-talk-web.onrender.com/)
+*NOTE: This is best accessed through your mobile phone. If the load up is taking forever, that is because I am using the free tier of Render (hosting) and Render spins down apps with inactivity.*
+
 A realtime Ruby on Rails Chat application built with Hotwire (Turbo and Stimulus)
 
 ### Core dependencies
